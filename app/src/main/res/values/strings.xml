@@ -4,4 +4,6 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="feedback">Feedback</string>
+    <string name="log_out">Log out</string>
 </resources>

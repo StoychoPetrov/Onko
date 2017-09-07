@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android               ="http://schemas.android.com/apk/res/android"
+    android:orientation         ="vertical"
+    android:layout_width        ="match_parent"
+    android:layout_height       ="wrap_content"
+    android:layout_marginBottom ="8dp">
+
+    <LinearLayout
+        android:layout_width        ="match_parent"
+        android:layout_height       ="wrap_content"
+        android:orientation         ="vertical"
+        android:paddingLeft         ="16dp"
+        android:paddingRight        ="16dp"
+        android:paddingTop          ="16dp"
+        android:paddingBottom       ="8dp"
+        android:background          ="@color/colorPrimary">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id                  ="@+id/profile_image"
+            android:layout_width        ="60dp"
+            android:layout_height       ="60dp"
+            android:src                 ="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width    ="match_parent"
+            android:layout_height   ="56dp"
+            android:layout_marginTop="5dp"
+            android:orientation     ="vertical">
+
+            <TextView
+                android:id              ="@+id/name_txt"
+                android:layout_width    ="match_parent"
+                android:layout_height   ="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize        ="14sp"/>
+
+            <TextView
+                android:id              ="@+id/email_txt"
+                android:layout_width    ="match_parent"
+                android:layout_height   ="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize        ="14sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width            ="match_parent"
+        android:layout_height           ="1dp"
+        android:background              ="@android:color/darker_gray"/>
+
+</LinearLayout>
