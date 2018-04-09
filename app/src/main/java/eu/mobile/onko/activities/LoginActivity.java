@@ -3,13 +3,22 @@ package eu.mobile.onko.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import eu.mobile.onko.R;
+import eu.mobile.onko.communicationClasses.PostRequest;
+import eu.mobile.onko.communicationClasses.ResponseListener;
+import eu.mobile.onko.globalClasses.GlobalData;
+import eu.mobile.onko.globalClasses.Utils;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ResponseListener{
 
     private EditText    mPasswordEdt;
     private EditText    mEmailEdt;
@@ -34,16 +43,69 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mLoginBtn.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view.getId() == mLoginBtn.getId()){
-            goToMainActivity();
-        }
-    }
-
     private void goToMainActivity(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private  void login(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(Utils.EMAIL, mEmailEdt.getText().toString());
+            jsonObject.put(Utils.PASSWORD, mPasswordEdt.getText().toString());
+        }catch (JSONException exception){
+            exception.printStackTrace();
+        }
+
+        PostRequest postRequest = new PostRequest(this, jsonObject, this);
+        postRequest.execute(Utils.URL + Utils.LOGIN);
+    }
+
+    private boolean validate(){
+        if(mEmailEdt.getText().toString().isEmpty()) {
+            Toast.makeText(LoginActivity.this, getString(R.string.enter_your_email), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(mPasswordEdt.getText().toString().isEmpty()) {
+            Toast.makeText(LoginActivity.this, getString(R.string.enter_your_password), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(mEmailEdt.getText().toString()).matches()) {
+            Toast.makeText(LoginActivity.this, getString(R.string.enter_valid_email), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == mLoginBtn.getId()){
+            if(validate())
+                login();
+        }
+    }
+
+    @Override
+    public void onResponseReceived(int responseCode, JSONObject jsonObject) {
+        if(responseCode == Utils.STATUS_SUCCESS){
+            try {
+                GlobalData.getInstance().setmUserId(jsonObject.getInt(Utils.ID));
+                GlobalData.getInstance().setmUserEmail(jsonObject.getString(Utils.USER_EMAIL));
+                GlobalData.getInstance().setmPassword(jsonObject.getString(Utils.USER_PASSWORD));
+                GlobalData.getInstance().setmFirstName(jsonObject.getString(Utils.USER_FIRST_NAME));
+                GlobalData.getInstance().setmLastName(jsonObject.getString(Utils.USER_LAST_NAME));
+                GlobalData.getInstance().setmPhoneNumber(jsonObject.getString(Utils.USER_PHONE));
+            }catch (JSONException exception){
+                exception.printStackTrace();
+            }
+            goToMainActivity();
+        }
+        else if(responseCode == Utils.STATUS_NOT_FOUND){
+            Toast.makeText(LoginActivity.this, getString(R.string.wrong_email_or_password), Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(LoginActivity.this, getString(R.string.connection_problem), Toast.LENGTH_SHORT).show();
     }
 }

@@ -10,9 +10,28 @@ import android.widget.TextView;
 
 public class Utils {
 
+    // REQUEST LINKS
+    public static final String URL      = "http://192.168.0.105:50110/api/";
+    public static final String LOGIN    = "users/login";
+    // COMMUNICATION PARAMS
+    public static final String EMAIL    = "email";
+    public static final String PASSWORD = "password";
+
+    //HTTP STATUS
+    public static final int    STATUS_SUCCESS   = 200;
+    public static final int    STATUS_NOT_FOUND = 404;
+
     // TYPEFACES PATH
     public static final String ROBOTO_MEDIUM    = "fonts/Roboto-Medium.ttf";
     public static final String ROBOTO_REGULAR   = "fonts/Roboto-Regular.ttf";
+
+    // JSON PARAMS
+    public static final String ID              = "id";
+    public static final String USER_EMAIL      = "user_email";
+    public static final String USER_PASSWORD   = "password";
+    public static final String USER_FIRST_NAME = "user_first_name";
+    public static final String USER_LAST_NAME  = "user_last_name";
+    public static final String USER_PHONE      = "user_phone";
 
     public static void setTypeFace(Context context, TextView textView, String typeFacePath){
         Typeface customFont = Typeface.createFromAsset(context.getAssets(),  typeFacePath);
