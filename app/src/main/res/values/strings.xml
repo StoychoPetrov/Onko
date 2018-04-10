@@ -11,4 +11,9 @@
     <string name="enter_your_email">Enter your email</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="enter_valid_email">Enter a valid email</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="phone_number">Phone number</string>
+    <string name="sign_up">Sign up</string>
 </resources>

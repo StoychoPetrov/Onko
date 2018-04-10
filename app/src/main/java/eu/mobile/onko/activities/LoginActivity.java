@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText    mPasswordEdt;
     private EditText    mEmailEdt;
     private Button      mLoginBtn;
+    private Button      mSignUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mEmailEdt       = (EditText)    findViewById(R.id.email_edt);
         mPasswordEdt    = (EditText)    findViewById(R.id.password_edt);
         mLoginBtn       = (Button)      findViewById(R.id.login_btn);
+        mSignUpBtn      = (Button)      findViewById(R.id.sign_up_btn);
     }
 
     private void setListeners(){
         mLoginBtn.setOnClickListener(this);
+        mSignUpBtn.setOnClickListener(this);
     }
 
     private void goToMainActivity(){
@@ -84,6 +87,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(view.getId() == mLoginBtn.getId()){
             if(validate())
                 login();
+        }
+        else if(view.getId() == mSignUpBtn.getId()){
+            Intent intent = new Intent(this, RegistrationActivity.class);
+            startActivity(intent);
         }
     }
 
