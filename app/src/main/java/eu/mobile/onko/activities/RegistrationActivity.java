@@ -6,9 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import eu.mobile.onko.R;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener{
+import eu.mobile.onko.R;
+import eu.mobile.onko.communicationClasses.PostRequest;
+import eu.mobile.onko.communicationClasses.ResponseListener;
+import eu.mobile.onko.globalClasses.Utils;
+
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener, ResponseListener{
 
     private TextInputEditText   mEmailEdt;
     private TextInputEditText   mPasswordEdt;
@@ -74,15 +81,33 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void onSignUpClicked(){
+        JSONObject jsonObject = new JSONObject();
 
+        try {
+            jsonObject.put(Utils.USER_MKB, new JSONArray());
+            jsonObject.put(Utils.USER_EMAIL         , mEmailEdt.getText().toString());
+            jsonObject.put(Utils.USER_PASSWORD      , mPasswordEdt.getText().toString());
+            jsonObject.put(Utils.USER_FIRST_NAME    , mFirstNameEdt.getText().toString());
+            jsonObject.put(Utils.USER_LAST_NAME     , mLastNameEdt.getText().toString());
+            jsonObject.put(Utils.USER_PHONE         , mPhoneNumberEdt.getText().toString());
+        }catch (JSONException exception){
+            exception.printStackTrace();
+        }
+        PostRequest register = new PostRequest(this, jsonObject, this);
+        register.execute(Utils.URL + Utils.REGISTER);
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId() == mSignUpBtn.getId()){
             if(validate()){
-
+                onSignUpClicked();
             }
         }
+    }
+
+    @Override
+    public void onResponseReceived(int responseCode, JSONObject jsonObject) {
+
     }
 }

@@ -121,4 +121,6 @@
         android:id      ="@+id/sign_up_btn"
         android:text    ="@string/sign_up"/>
 
+    <include layout="@layout/progress_layout"/>
+
 </RelativeLayout>
