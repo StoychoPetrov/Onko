@@ -103,19 +103,11 @@ public class PostRequest extends AsyncTask<String, Void, String>{
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
 
         showProgress(false);
-        JSONObject result = null;
-        try {
-            if (s != null && !s.isEmpty())
-                result = new JSONObject(s);
-
-            mListener.onResponseReceived(mResponseCode, result);
-        }catch (JSONException exception){
-            exception.printStackTrace();
-        }
+        mListener.onResponseReceived(mResponseCode, result);
     }
 
     private void showProgress(final boolean visible){

@@ -14,6 +14,7 @@ public class GlobalData {
     private String  mFirstName;
     private String  mLastName;
     private String  mPhoneNumber;
+    private String  mToken;
 
     public static GlobalData getInstance(){
         if(instance != null)
@@ -70,5 +71,13 @@ public class GlobalData {
 
     public void setmPhoneNumber(String mPhoneNumber) {
         this.mPhoneNumber = mPhoneNumber;
+    }
+
+    public String getmToken() {
+        return mToken;
+    }
+
+    public void setmToken(String mToken) {
+        this.mToken = mToken;
     }
 }

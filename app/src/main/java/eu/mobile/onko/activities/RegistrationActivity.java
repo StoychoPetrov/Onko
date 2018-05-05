@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +94,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }catch (JSONException exception){
             exception.printStackTrace();
         }
+
         PostRequest register = new PostRequest(this, jsonObject, this);
         register.execute(Utils.URL + Utils.REGISTER);
     }
@@ -107,7 +109,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void onResponseReceived(int responseCode, JSONObject jsonObject) {
-
+    public void onResponseReceived(int responseCode, String result) {
+        if(responseCode == Utils.STATUS_SUCCESS){
+            Toast.makeText(this, getString(R.string.registration_is_successfull), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else {
+            Toast.makeText(this, getString(R.string.registration_error), Toast.LENGTH_SHORT).show();
+        }
     }
 }

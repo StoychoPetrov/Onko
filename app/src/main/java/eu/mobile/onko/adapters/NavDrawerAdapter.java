@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.mobile.onko.R;
+import eu.mobile.onko.globalClasses.GlobalData;
 import eu.mobile.onko.globalClasses.Utils;
 import eu.mobile.onko.models.DrawerMenuItemModel;
 import eu.mobile.onko.models.ProfileModel;
@@ -29,14 +30,12 @@ public class NavDrawerAdapter extends BaseAdapter{
 
     private Context                             mContext;
     private ArrayList<DrawerMenuItemModel>      mNavMenuItems = new ArrayList<>();
-    private ProfileModel                        mProfileModel;
     private LayoutInflater                      mLayoutInflater;
 
 
-    public NavDrawerAdapter(Context context, ArrayList<DrawerMenuItemModel> navMenuItems, ProfileModel profileModel) {
+    public NavDrawerAdapter(Context context, ArrayList<DrawerMenuItemModel> navMenuItems) {
         mContext                    = context;
         mNavMenuItems               = navMenuItems;
-        mProfileModel               = profileModel;
         mLayoutInflater             = ((Activity)mContext).getLayoutInflater();
     }
 
@@ -73,8 +72,9 @@ public class NavDrawerAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) view.getTag();
 
             if(position == TYPE_HEADER){
-                viewHolder.mNameTxt.setText(mProfileModel.getmName());
-                viewHolder.mEmailTxt.setText(mProfileModel.getmEmail());
+                String names = GlobalData.getInstance().getmFirstName() + " " + GlobalData.getInstance().getmLastName();
+                viewHolder.mNameTxt.setText(names);
+                viewHolder.mEmailTxt.setText(GlobalData.getInstance().getmUserEmail());
                 viewHolder.mProfileImageView.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_account_circle));
 
                 Utils.setTypeFace(mContext,viewHolder.mNameTxt,Utils.ROBOTO_MEDIUM);

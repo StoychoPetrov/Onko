@@ -8,5 +8,5 @@ import org.json.JSONObject;
 
 public interface ResponseListener {
 
-    void onResponseReceived(int responseCode, JSONObject jsonObject);
+    void onResponseReceived(int responseCode, String response);
 }

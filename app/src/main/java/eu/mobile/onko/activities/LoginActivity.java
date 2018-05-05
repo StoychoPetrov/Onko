@@ -95,15 +95,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onResponseReceived(int responseCode, JSONObject jsonObject) {
+    public void onResponseReceived(int responseCode, String result) {
         if(responseCode == Utils.STATUS_SUCCESS){
             try {
+                JSONObject jsonObject = new JSONObject(result);
                 GlobalData.getInstance().setmUserId(jsonObject.getInt(Utils.ID));
                 GlobalData.getInstance().setmUserEmail(jsonObject.getString(Utils.USER_EMAIL));
                 GlobalData.getInstance().setmPassword(jsonObject.getString(Utils.USER_PASSWORD));
                 GlobalData.getInstance().setmFirstName(jsonObject.getString(Utils.USER_FIRST_NAME));
                 GlobalData.getInstance().setmLastName(jsonObject.getString(Utils.USER_LAST_NAME));
                 GlobalData.getInstance().setmPhoneNumber(jsonObject.getString(Utils.USER_PHONE));
+                GlobalData.getInstance().setmToken(jsonObject.getString(Utils.USER_TOKEN));
             }catch (JSONException exception){
                 exception.printStackTrace();
             }

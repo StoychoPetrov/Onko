@@ -11,21 +11,35 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import eu.mobile.onko.R;
+import eu.mobile.onko.adapters.MkbAdapter;
 import eu.mobile.onko.adapters.NavDrawerAdapter;
+import eu.mobile.onko.communicationClasses.PostRequest;
+import eu.mobile.onko.communicationClasses.ResponseListener;
+import eu.mobile.onko.globalClasses.GlobalData;
+import eu.mobile.onko.globalClasses.Utils;
 import eu.mobile.onko.models.DrawerMenuItemModel;
+import eu.mobile.onko.models.MkbModel;
 import eu.mobile.onko.models.ProfileModel;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener, ResponseListener {
 
     private static final int INDEX_FEEDBACK         = 1;
     private static final int INDEX_LOG_OUT          = 2;
 
     private Toolbar         mToolbar;
     private ListView        mNavDrawerListView;
+    private ListView        mMkbListView;
     private DrawerLayout    mDrawerLayout;
+
+    private ArrayList<MkbModel> mUserMkbsArrayList = new ArrayList<>();
+    private MkbAdapter          mMkbAdapter;
 
     private boolean         mFromDrawerItemClicked;
     private int             mPosition;
@@ -37,12 +51,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         initUI();
         setListeners();
+        setData();
+
+        getUserMkbs();
     }
 
     private void initUI(){
-        mToolbar                = (Toolbar)         findViewById(R.id.toolbar);
-        mNavDrawerListView      = (ListView)        findViewById(R.id.nav_list_view);
-        mDrawerLayout           = (DrawerLayout)    findViewById(R.id.drawer_layout);
+        mToolbar                = findViewById(R.id.toolbar);
+        mNavDrawerListView      = findViewById(R.id.nav_list_view);
+        mDrawerLayout           = findViewById(R.id.drawer_layout);
+        mMkbListView            = findViewById(R.id.mkb_list_view);
 
         setSupportActionBar(mToolbar);
 
@@ -62,14 +80,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mDrawerLayout.addDrawerListener(this);
     }
 
+    private void setData(){
+        mMkbAdapter = new MkbAdapter(this, mUserMkbsArrayList);
+        mMkbListView.setAdapter(mMkbAdapter);
+    }
+
     private void loadDrawerMenu(){
-        ProfileModel profileModel = new ProfileModel("Ivan Ivanov Ivanov","ivan@gmail.com",null);
 
         ArrayList<DrawerMenuItemModel> menuItems = new ArrayList<>();
         menuItems.add(new DrawerMenuItemModel(getString(R.string.feedback),ContextCompat.getDrawable(this,R.drawable.ic_email)));
         menuItems.add(new DrawerMenuItemModel(getString(R.string.log_out),ContextCompat.getDrawable(this,R.drawable.ic_logout)));
 
-        NavDrawerAdapter adapter = new NavDrawerAdapter(this,menuItems,profileModel);
+        NavDrawerAdapter adapter = new NavDrawerAdapter(this,menuItems);
         mNavDrawerListView.setAdapter(adapter);
     }
 
@@ -87,6 +109,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case INDEX_LOG_OUT:
                 onLogOut();
                 break;
+        }
+    }
+
+    private void getUserMkbs() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(Utils.USER_TOKEN, GlobalData.getInstance().getmToken());
+            PostRequest getMkbs = new PostRequest(this, jsonObject, this);
+            getMkbs.execute(Utils.URL + Utils.USER_MKBS);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -119,5 +152,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onDrawerStateChanged(int newState) {
 
+    }
+
+    @Override
+    public void onResponseReceived(int responseCode, String result) {
+
+        try {
+            JSONArray mkbs = new JSONArray(result);
+
+            for (int i = 0; i < mkbs.length(); i++){
+                MkbModel mkbModel = new MkbModel(mkbs.getJSONObject(i).getInt(Utils.MKB_ID), mkbs.getJSONObject(i).getString(Utils.MKB_NAME));
+                mUserMkbsArrayList.add(mkbModel);
+            }
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mMkbAdapter.notifyDataSetChanged();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
