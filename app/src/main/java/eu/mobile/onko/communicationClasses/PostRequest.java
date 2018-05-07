@@ -33,6 +33,7 @@ public class PostRequest extends AsyncTask<String, Void, String>{
     private JSONObject          mPostData;
     private ResponseListener    mListener;
     private int                 mResponseCode;
+    private String              mHttpMethod     = "POST";
 
     public PostRequest(Context context, JSONObject jsonObject, ResponseListener listner){
         mContext    = context;
@@ -46,35 +47,39 @@ public class PostRequest extends AsyncTask<String, Void, String>{
 
         String urlString = urls[0]; // URL to call
 
-        String data = mPostData.toString(); //data to post
-
         OutputStream out = null;
         try {
 
             URL url = new URL(urlString);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestMethod(mHttpMethod);
             urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
+            if(mHttpMethod.equalsIgnoreCase("POST")) {
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+            }
             urlConnection.connect();
 
-            out = new BufferedOutputStream(urlConnection.getOutputStream());
+            if(mHttpMethod.equalsIgnoreCase("POST")) {
+                out = new BufferedOutputStream(urlConnection.getOutputStream());
 
-            BufferedWriter writer = new BufferedWriter (new OutputStreamWriter(out, "UTF-8"));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
 
-            writer.write(data);
+                String data = mPostData.toString(); //data to post
+                writer.write(data);
 
-            writer.flush();
+                writer.flush();
 
-            writer.close();
+                writer.close();
 
-            out.close();
+                out.close();
+            }
 
             int responseCode    = urlConnection.getResponseCode();
 
             Log.d("HTTP_RESPONSE_CODE:", String.valueOf(responseCode));
+
 
             StringBuilder builder = new StringBuilder();
 
@@ -121,5 +126,13 @@ public class PostRequest extends AsyncTask<String, Void, String>{
                 progressView.setVisibility(visible ? View.VISIBLE : View.GONE);
             }
         });
+    }
+
+    public String getmHttpMethod() {
+        return mHttpMethod;
+    }
+
+    public void setmHttpMethod(String mHttpMethod) {
+        this.mHttpMethod = mHttpMethod;
     }
 }

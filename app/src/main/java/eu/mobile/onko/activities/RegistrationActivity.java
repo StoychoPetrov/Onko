@@ -85,7 +85,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put(Utils.USER_MKB, new JSONArray());
+            jsonObject.put(Utils.USER_MKB           , new JSONArray());
             jsonObject.put(Utils.USER_EMAIL         , mEmailEdt.getText().toString());
             jsonObject.put(Utils.USER_PASSWORD      , mPasswordEdt.getText().toString());
             jsonObject.put(Utils.USER_FIRST_NAME    , mFirstNameEdt.getText().toString());

@@ -11,10 +11,17 @@ import android.widget.TextView;
 public class Utils {
 
     // REQUEST LINKS
-    public static final String URL          = "http://192.168.0.106:50110/api/";
-    public static final String LOGIN        = "users/login";
-    public static final String REGISTER     = "users/register";
-    public static final String USER_MKBS    = "userMkb/getAll";
+    public static final String URL                      = "http://192.168.0.106:50110/api/";
+    public static final String LOGIN                    = "users/login";
+    public static final String REGISTER                 = "users/register";
+    public static final String USER_MKBS                = "userMkb/getAll";
+    public static final String MKB_GROUPS               = "MkbGroups";
+    public static final String MKBS                     = "Mkbs";
+    public static final String ADD_ACTION               = "/add";
+    public static final String USER_MKB_CONTROLLER      = "userMkb";
+
+    // QUERY PARAMS
+    public static final String GROUP_ID     = "?groupId=";
 
     // COMMUNICATION PARAMS
     public static final String EMAIL    = "email";
@@ -39,6 +46,14 @@ public class Utils {
     public static final String USER_TOKEN      = "auth_token";
     public static final String MKB_ID          = "MkbId";
     public static final String MKB_NAME        = "MkbName";
+    public static final String MKB_GROUP_NAME  = "mkb_group_name";
+    public static final String MKB_TITLE       = "mkb_name";
+    public static final String MKB_ID_PARAM    = "mkb_id";
+
+    // INTENT EXTRAS
+    public static final String INTENT_GROUP_ID      = "group_id";
+    public static final String INTENT_GROUP_NAME    = "group_name";
+    public static final String INTENT_MKB_ID        = "mkb_id";
 
     public static void setTypeFace(Context context, TextView textView, String typeFacePath){
         Typeface customFont = Typeface.createFromAsset(context.getAssets(),  typeFacePath);

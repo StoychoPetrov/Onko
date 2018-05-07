@@ -1,6 +1,7 @@
 package eu.mobile.onko.activities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import eu.mobile.onko.R;
+import eu.mobile.onko.activities.addMkb.MkbGroupsActivity;
 import eu.mobile.onko.adapters.MkbAdapter;
 import eu.mobile.onko.adapters.NavDrawerAdapter;
 import eu.mobile.onko.communicationClasses.PostRequest;
@@ -28,15 +30,17 @@ import eu.mobile.onko.models.DrawerMenuItemModel;
 import eu.mobile.onko.models.MkbModel;
 import eu.mobile.onko.models.ProfileModel;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener, ResponseListener {
+public class MainActivity extends AppCompatActivity
+        implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener, ResponseListener, View.OnClickListener {
 
     private static final int INDEX_FEEDBACK         = 1;
     private static final int INDEX_LOG_OUT          = 2;
 
-    private Toolbar         mToolbar;
-    private ListView        mNavDrawerListView;
-    private ListView        mMkbListView;
-    private DrawerLayout    mDrawerLayout;
+    private Toolbar                 mToolbar;
+    private ListView                mNavDrawerListView;
+    private ListView                mMkbListView;
+    private DrawerLayout            mDrawerLayout;
+    private FloatingActionButton    mAddFab;
 
     private ArrayList<MkbModel> mUserMkbsArrayList = new ArrayList<>();
     private MkbAdapter          mMkbAdapter;
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mNavDrawerListView      = findViewById(R.id.nav_list_view);
         mDrawerLayout           = findViewById(R.id.drawer_layout);
         mMkbListView            = findViewById(R.id.mkb_list_view);
+        mAddFab                 = findViewById(R.id.diseases_fab);
 
         setSupportActionBar(mToolbar);
 
@@ -78,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         mNavDrawerListView.setOnItemClickListener(this);
         mDrawerLayout.addDrawerListener(this);
+        mAddFab.setOnClickListener(this);
     }
 
     private void setData(){
@@ -173,6 +179,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             });
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == mAddFab.getId()){
+            Intent intent = new Intent(this, MkbGroupsActivity.class);
+            startActivity(intent);
         }
     }
 }

@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private  void login(){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put(Utils.EMAIL, mEmailEdt.getText().toString());
-            jsonObject.put(Utils.PASSWORD, mPasswordEdt.getText().toString());
+            jsonObject.put(Utils.EMAIL      , mEmailEdt.getText().toString());
+            jsonObject.put(Utils.PASSWORD   , mPasswordEdt.getText().toString());
         }catch (JSONException exception){
             exception.printStackTrace();
         }
