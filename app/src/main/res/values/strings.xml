@@ -19,4 +19,8 @@
     <string name="registration_is_successfull">Registration is successful</string>
     <string name="registration_error">Registration error</string>
     <string name="mkb_groups">MKB Groups</string>
+    <string name="you_have_added_mkb_successful">You have added MKB successful</string>
+    <string name="you_couldnt_add_mkb">You couldn\'t add MKB</string>
+    <string name="you_have_deleted_mkb_successful">You have deleted MKB successful</string>
+    <string name="you_havent_deleted_mkb_seccessful">You haven\'t deleted MKB successful</string>
 </resources>

@@ -1,6 +1,5 @@
 package eu.mobile.onko.activities.addMkb;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,16 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import eu.mobile.onko.R;
-import eu.mobile.onko.adapters.MkbAdapter;
 import eu.mobile.onko.communicationClasses.PostRequest;
 import eu.mobile.onko.communicationClasses.ResponseListener;
 import eu.mobile.onko.globalClasses.GlobalData;
@@ -117,15 +115,25 @@ public class MkbActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onResponseReceived(int responseCode, String response) {
-        if(responseCode == Utils.STATUS_SUCCESS){
+    public void onResponseReceived(String url, int responseCode, String response) {
+        if(url.equalsIgnoreCase(Utils.URL + Utils.USER_MKB_CONTROLLER + Utils.ADD_ACTION)){
+            if(responseCode == Utils.STATUS_SUCCESS){
+                Toast.makeText(this, getString(R.string.you_have_added_mkb_successful), Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
+                finish();
+            }
+            else {
+                Toast.makeText(this, getString(R.string.you_couldnt_add_mkb), Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if(responseCode == Utils.STATUS_SUCCESS){
             try {
                 JSONArray mkbs = new JSONArray(response);
 
                 for(int i = 0 ; i < mkbs.length(); i++){
                     JSONObject mkb = mkbs.getJSONObject(i);
 
-                    MkbModel mkbModel = new MkbModel(mkb.getInt(Utils.ID), mkb.getString(Utils.MKB_TITLE));
+                    MkbModel mkbModel = new MkbModel(0, mkb.getInt(Utils.ID), mkb.getString(Utils.MKB_TITLE));
                     mMkbArrayList.add(mkbModel);
                     mMkbNamesArrayList.add(mkbModel.getmMkbName());
                 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,18 +25,24 @@ public class MkbAdapter extends ArrayAdapter<MkbModel> {
     private Context             mContext;
     private ArrayList<MkbModel> mMkbArrayList;
     private LayoutInflater      mInflater;
+    private OnButtonsClicked    mListener;
 
-    public MkbAdapter(@NonNull Context context, @NonNull ArrayList<MkbModel> objects) {
+    public interface OnButtonsClicked {
+        void onDeleteClicked(int position);
+    }
+
+    public MkbAdapter(@NonNull Context context, @NonNull ArrayList<MkbModel> objects, OnButtonsClicked listener) {
         super(context, R.layout.item_mkb, objects);
 
         mContext        = context;
         mMkbArrayList   = objects;
         mInflater       = ((Activity) context).getLayoutInflater();
+        mListener       = listener;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
 
         if(convertView == null){
@@ -53,15 +60,25 @@ public class MkbAdapter extends ArrayAdapter<MkbModel> {
 
         viewHolder.mMkbNameTxt.setText(mkbName);
 
+        viewHolder.mDeleteImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null)
+                    mListener.onDeleteClicked(position);
+            }
+        });
+
         return convertView;
     }
 
     public class ViewHolder {
 
-        TextView mMkbNameTxt;
+        TextView        mMkbNameTxt;
+        ImageButton     mDeleteImgBtn;
 
         ViewHolder(View view){
-            mMkbNameTxt = view.findViewById(R.id.mkb_name_txt);
+            mMkbNameTxt     = view.findViewById(R.id.mkb_name_txt);
+            mDeleteImgBtn   = view.findViewById(R.id.delete_icon);
         }
     }
 }

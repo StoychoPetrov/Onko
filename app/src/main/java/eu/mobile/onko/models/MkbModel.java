@@ -6,12 +6,14 @@ package eu.mobile.onko.models;
 
 public class MkbModel {
 
+    private int     mUserMkbId;
     private int     mMkbId;
     private String  mMkbName;
 
-    public MkbModel(int mMkbId, String mMkbName) {
-        this.mMkbId = mMkbId;
-        this.mMkbName = mMkbName;
+    public MkbModel(int userMkbId, int mMkbId, String mMkbName) {
+        this.mUserMkbId = userMkbId;
+        this.mMkbId     = mMkbId;
+        this.mMkbName   = mMkbName;
     }
 
     public int getmMkbId() {
@@ -28,5 +30,13 @@ public class MkbModel {
 
     public void setmMkbName(String mMkbName) {
         this.mMkbName = mMkbName;
+    }
+
+    public int getmUserMkbId() {
+        return mUserMkbId;
+    }
+
+    public void setmUserMkbId(int mUserMkbId) {
+        this.mUserMkbId = mUserMkbId;
     }
 }

@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,8 +32,9 @@ import eu.mobile.onko.models.MkbModel;
 import eu.mobile.onko.models.ProfileModel;
 
 public class MainActivity extends AppCompatActivity
-        implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener, ResponseListener, View.OnClickListener {
+        implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener, ResponseListener, View.OnClickListener, MkbAdapter.OnButtonsClicked {
 
+    private static final int REQUEST_CODE_MKB_GROUP = 0;
     private static final int INDEX_FEEDBACK         = 1;
     private static final int INDEX_LOG_OUT          = 2;
 
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setData(){
-        mMkbAdapter = new MkbAdapter(this, mUserMkbsArrayList);
+        mMkbAdapter = new MkbAdapter(this, mUserMkbsArrayList, this);
         mMkbListView.setAdapter(mMkbAdapter);
     }
 
@@ -129,6 +131,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void deleteUserMkb(int id){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(Utils.USER_TOKEN , GlobalData.getInstance().getmToken());
+            jsonObject.put(Utils.ID         , id);
+            PostRequest postRequest = new PostRequest(this, jsonObject, this);
+            postRequest.setmHttpMethod("POST");
+            postRequest.execute(Utils.URL + Utils.USER_MKB_CONTROLLER + Utils.DELETE_ACTION);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -161,24 +176,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onResponseReceived(int responseCode, String result) {
+    public void onResponseReceived(String url, int responseCode, String result) {
 
-        try {
-            JSONArray mkbs = new JSONArray(result);
-
-            for (int i = 0; i < mkbs.length(); i++){
-                MkbModel mkbModel = new MkbModel(mkbs.getJSONObject(i).getInt(Utils.MKB_ID), mkbs.getJSONObject(i).getString(Utils.MKB_NAME));
-                mUserMkbsArrayList.add(mkbModel);
+        if(url.equalsIgnoreCase(Utils.URL + Utils.USER_MKB_CONTROLLER + Utils.DELETE_ACTION)){
+            if(responseCode == Utils.STATUS_SUCCESS) {
+                Toast.makeText(this, getString(R.string.you_have_deleted_mkb_successful), Toast.LENGTH_SHORT).show();
+                getUserMkbs();
             }
+            else
+                Toast.makeText(this, getString(R.string.you_havent_deleted_mkb_seccessful), Toast.LENGTH_SHORT).show();
+        }
+        else {
+            try {
+                mUserMkbsArrayList.clear();
+                JSONArray mkbs = new JSONArray(result);
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mMkbAdapter.notifyDataSetChanged();
+                for (int i = 0; i < mkbs.length(); i++) {
+                    MkbModel mkbModel = new MkbModel(mkbs.getJSONObject(i).getInt(Utils.USER_MKB_ID), mkbs.getJSONObject(i).getInt(Utils.MKB_ID), mkbs.getJSONObject(i).getString(Utils.MKB_NAME));
+                    mUserMkbsArrayList.add(mkbModel);
                 }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMkbAdapter.notifyDataSetChanged();
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -186,7 +212,21 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v) {
         if(v.getId() == mAddFab.getId()){
             Intent intent = new Intent(this, MkbGroupsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CODE_MKB_GROUP);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_MKB_GROUP && resultCode == RESULT_OK){
+            getUserMkbs();
+        }
+    }
+
+    @Override
+    public void onDeleteClicked(int position) {
+        deleteUserMkb(mUserMkbsArrayList.get(position).getmUserMkbId());
     }
 }

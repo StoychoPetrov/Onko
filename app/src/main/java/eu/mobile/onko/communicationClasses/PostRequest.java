@@ -34,6 +34,7 @@ public class PostRequest extends AsyncTask<String, Void, String>{
     private ResponseListener    mListener;
     private int                 mResponseCode;
     private String              mHttpMethod     = "POST";
+    private String              mUrl            = "";
 
     public PostRequest(Context context, JSONObject jsonObject, ResponseListener listner){
         mContext    = context;
@@ -45,12 +46,12 @@ public class PostRequest extends AsyncTask<String, Void, String>{
     protected String doInBackground(String... urls) {
         showProgress(true);
 
-        String urlString = urls[0]; // URL to call
+        mUrl = urls[0]; // URL to call
 
         OutputStream out = null;
         try {
 
-            URL url = new URL(urlString);
+            URL url = new URL(mUrl);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(mHttpMethod);
@@ -112,7 +113,7 @@ public class PostRequest extends AsyncTask<String, Void, String>{
         super.onPostExecute(result);
 
         showProgress(false);
-        mListener.onResponseReceived(mResponseCode, result);
+        mListener.onResponseReceived(mUrl, mResponseCode, result);
     }
 
     private void showProgress(final boolean visible){

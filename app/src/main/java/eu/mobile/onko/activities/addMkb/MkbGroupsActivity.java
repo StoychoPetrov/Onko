@@ -98,13 +98,13 @@ public class MkbGroupsActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onResponseReceived(int responseCode, String response) {
+    public void onResponseReceived(String url, int responseCode, String response) {
         if(responseCode == Utils.STATUS_SUCCESS){
             try {
                 JSONArray mkbGroups = new JSONArray(response);
                 for(int i = 0; i < mkbGroups.length(); i++){
                     JSONObject mkbGroup = mkbGroups.getJSONObject(i);
-                    MkbModel group = new MkbModel(mkbGroup.getInt(Utils.ID), mkbGroup.getString(Utils.MKB_GROUP_NAME));
+                    MkbModel group = new MkbModel(0, mkbGroup.getInt(Utils.ID), mkbGroup.getString(Utils.MKB_GROUP_NAME));
                     mMkbGroupsArrayList.add(group);
                     mGroupNames.add(group.getmMkbName());
                 }
@@ -118,6 +118,16 @@ public class MkbGroupsActivity extends AppCompatActivity implements View.OnClick
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_MKB && resultCode == RESULT_OK){
+            setResult(RESULT_OK);
+            finish();
         }
     }
 }

@@ -109,7 +109,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void onResponseReceived(int responseCode, String result) {
+    public void onResponseReceived(String url, int responseCode, String result) {
         if(responseCode == Utils.STATUS_SUCCESS){
             Toast.makeText(this, getString(R.string.registration_is_successfull), Toast.LENGTH_SHORT).show();
             finish();

@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onResponseReceived(int responseCode, String result) {
+    public void onResponseReceived(String url, int responseCode, String result) {
         if(responseCode == Utils.STATUS_SUCCESS){
             try {
                 JSONObject jsonObject = new JSONObject(result);

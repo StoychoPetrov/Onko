@@ -18,6 +18,7 @@ public class Utils {
     public static final String MKB_GROUPS               = "MkbGroups";
     public static final String MKBS                     = "Mkbs";
     public static final String ADD_ACTION               = "/add";
+    public static final String DELETE_ACTION            = "/delete";
     public static final String USER_MKB_CONTROLLER      = "userMkb";
 
     // QUERY PARAMS
@@ -49,6 +50,7 @@ public class Utils {
     public static final String MKB_GROUP_NAME  = "mkb_group_name";
     public static final String MKB_TITLE       = "mkb_name";
     public static final String MKB_ID_PARAM    = "mkb_id";
+    public static final String USER_MKB_ID     = "UserMkbId";
 
     // INTENT EXTRAS
     public static final String INTENT_GROUP_ID      = "group_id";
