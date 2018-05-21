@@ -20,6 +20,9 @@ public class Utils {
     public static final String ADD_ACTION               = "/add";
     public static final String DELETE_ACTION            = "/delete";
     public static final String USER_MKB_CONTROLLER      = "userMkb";
+    public static final String GET_EXAMINATIONS         = "examinations/getByMkb";
+    public static final String GET_DOCTORS              = "doctors/getDoctors";
+    public static final String GET_USER_EXAMINATION     = "userExaminations/getUserExaminations";
 
     // QUERY PARAMS
     public static final String GROUP_ID     = "?groupId=";
@@ -37,20 +40,31 @@ public class Utils {
     public static final String ROBOTO_REGULAR   = "fonts/Roboto-Regular.ttf";
 
     // JSON PARAMS
-    public static final String ID              = "id";
-    public static final String USER_EMAIL      = "user_email";
-    public static final String USER_PASSWORD   = "user_password";
-    public static final String USER_FIRST_NAME = "user_first_name";
-    public static final String USER_LAST_NAME  = "user_last_name";
-    public static final String USER_PHONE      = "user_phone";
-    public static final String USER_MKB        = "UserMKB";
-    public static final String USER_TOKEN      = "auth_token";
-    public static final String MKB_ID          = "MkbId";
-    public static final String MKB_NAME        = "MkbName";
-    public static final String MKB_GROUP_NAME  = "mkb_group_name";
-    public static final String MKB_TITLE       = "mkb_name";
-    public static final String MKB_ID_PARAM    = "mkb_id";
-    public static final String USER_MKB_ID     = "UserMkbId";
+    public static final String ID               = "id";
+    public static final String USER_EMAIL       = "user_email";
+    public static final String USER_PASSWORD    = "user_password";
+    public static final String USER_FIRST_NAME  = "user_first_name";
+    public static final String USER_LAST_NAME   = "user_last_name";
+    public static final String USER_PHONE       = "user_phone";
+    public static final String USER_MKB         = "UserMKB";
+    public static final String USER_TOKEN       = "auth_token";
+    public static final String MKB_ID           = "MkbId";
+    public static final String MKB_NAME         = "MkbName";
+    public static final String MKB_GROUP_NAME   = "mkb_group_name";
+    public static final String MKB_TITLE        = "mkb_name";
+    public static final String MKB_ID_PARAM     = "mkb_id";
+    public static final String USER_MKB_ID      = "UserMkbId";
+    public static final String EXAMINATION_ID   = "examination_id";
+    public static final String EXAMINATION_NAME = "examination_name";
+    public static final String MKB_GROUP        = "mkb_group";
+    public static final String DOCTORS          = "doctors";
+    public static final String DOCTOR_NAME      = "doctor_name";
+    public static final String USER_MKB_ID_PARAM= "user_mkb_id";
+    public static final String EXAMINATIONS     = "examinations";
+    public static final String PERIODS          = "periods";
+    public static final String PERIOD_ID        = "period_id";
+    public static final String DATE             = "date";
+    public static final String PERIOD_NAME      = "period_name";
 
     // INTENT EXTRAS
     public static final String INTENT_GROUP_ID      = "group_id";

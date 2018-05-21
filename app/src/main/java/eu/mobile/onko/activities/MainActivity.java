@@ -1,10 +1,12 @@
 package eu.mobile.onko.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -35,8 +37,9 @@ public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener, ResponseListener, View.OnClickListener, MkbAdapter.OnButtonsClicked {
 
     private static final int REQUEST_CODE_MKB_GROUP = 0;
-    private static final int INDEX_FEEDBACK         = 1;
-    private static final int INDEX_LOG_OUT          = 2;
+    private static final int INDEX_DOCTORS          = 1;
+    private static final int INDEX_FEEDBACK         = 2;
+    private static final int INDEX_LOG_OUT          = 3;
 
     private Toolbar                 mToolbar;
     private ListView                mNavDrawerListView;
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         mNavDrawerListView.setOnItemClickListener(this);
+        mMkbListView.setOnItemClickListener(this);
         mDrawerLayout.addDrawerListener(this);
         mAddFab.setOnClickListener(this);
     }
@@ -96,10 +100,11 @@ public class MainActivity extends AppCompatActivity
     private void loadDrawerMenu(){
 
         ArrayList<DrawerMenuItemModel> menuItems = new ArrayList<>();
+        menuItems.add(new DrawerMenuItemModel(getString(R.string.doctors), ContextCompat.getDrawable(this, R.drawable.doctors_icon)));
         menuItems.add(new DrawerMenuItemModel(getString(R.string.feedback),ContextCompat.getDrawable(this,R.drawable.ic_email)));
         menuItems.add(new DrawerMenuItemModel(getString(R.string.log_out),ContextCompat.getDrawable(this,R.drawable.ic_logout)));
 
-        NavDrawerAdapter adapter = new NavDrawerAdapter(this,menuItems);
+        NavDrawerAdapter adapter = new NavDrawerAdapter(this, menuItems);
         mNavDrawerListView.setAdapter(adapter);
     }
 
@@ -112,6 +117,10 @@ public class MainActivity extends AppCompatActivity
 
     private void onDrawerItemSelected(int position){
         switch (position){
+            case INDEX_DOCTORS:
+                Intent intent = new Intent(this, DoctorsActivity.class);
+                startActivity(intent);
+                break;
             case INDEX_FEEDBACK:
                 break;
             case INDEX_LOG_OUT:
@@ -146,9 +155,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        mFromDrawerItemClicked = true;
-        mPosition = position;
+        if(adapterView.getId() == mNavDrawerListView.getId()) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            mFromDrawerItemClicked = true;
+            mPosition = position;
+        }
+        else if(adapterView.getId() == mMkbListView.getId()){
+            Intent intent = new Intent(this, ExaminationsActivity.class);
+            intent.putExtra(Utils.INTENT_MKB_ID     , mUserMkbsArrayList.get(position).getmMkbId());
+            intent.putExtra(Utils.USER_MKB_ID_PARAM , mUserMkbsArrayList.get(position).getmUserMkbId());
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -226,7 +243,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDeleteClicked(int position) {
-        deleteUserMkb(mUserMkbsArrayList.get(position).getmUserMkbId());
+    public void onDeleteClicked(final int position) {
+
+        final AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.delete_mkb))
+                .setMessage(getString(R.string.are_you_sure_you_want_to_delete_this_mkb))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        deleteUserMkb(mUserMkbsArrayList.get(position).getmUserMkbId());
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

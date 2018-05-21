@@ -23,4 +23,9 @@
     <string name="you_couldnt_add_mkb">You couldn\'t add MKB</string>
     <string name="you_have_deleted_mkb_successful">You have deleted MKB successful</string>
     <string name="you_havent_deleted_mkb_seccessful">You haven\'t deleted MKB successful</string>
+    <string name="delete_mkb">Delete MKB?</string>
+    <string name="are_you_sure_you_want_to_delete_this_mkb">Are you sure you want to delete this MKB</string>
+    <string name="examinations">Examinations</string>
+    <string name="doctors">Doctors</string>
+    <string name="examinations_dates">Examinations dates</string>
 </resources>

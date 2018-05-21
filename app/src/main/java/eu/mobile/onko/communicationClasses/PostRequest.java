@@ -69,6 +69,7 @@ public class PostRequest extends AsyncTask<String, Void, String>{
 
                 String data = mPostData.toString(); //data to post
                 writer.write(data);
+                Log.d("HTTP_SENT", data);
 
                 writer.flush();
 

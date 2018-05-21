@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class MkbAdapter extends ArrayAdapter<MkbModel> {
     public class ViewHolder {
 
         TextView        mMkbNameTxt;
-        ImageButton     mDeleteImgBtn;
+        ImageView       mDeleteImgBtn;
 
         ViewHolder(View view){
             mMkbNameTxt     = view.findViewById(R.id.mkb_name_txt);
