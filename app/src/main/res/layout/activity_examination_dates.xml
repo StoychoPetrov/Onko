@@ -10,11 +10,27 @@
         android:id      ="@+id/toolbar"
         layout          ="@layout/toolbar"/>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id              ="@+id/dates_listview"
         android:layout_width    ="match_parent"
         android:layout_height   ="match_parent"
-        android:layout_below    ="@+id/toolbar"/>
+        android:layout_below    ="@+id/toolbar" />
+
+    <TextView
+        android:id                      ="@+id/no_data"
+        android:layout_width            ="wrap_content"
+        android:layout_height           ="wrap_content"
+        android:layout_centerInParent   ="true"
+        android:textSize                ="16sp"
+        android:textColor               ="@android:color/darker_gray"
+        android:text                    ="@string/there_is_no_saved_dates"
+        android:visibility              ="gone"/>
+
+    <Button
+        style               ="@style/MainButton"
+        android:id          ="@+id/add_date_btn"
+        android:text        ="@string/add_date"
+        android:visibility  ="gone"/>
 
     <include layout="@layout/progress_layout"/>
 

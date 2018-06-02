@@ -59,7 +59,7 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
         return mDoctorsArrayList.get(position).getmRowType();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView    mSectionTxt;
         private TextView    mDoctorTitleTxt;

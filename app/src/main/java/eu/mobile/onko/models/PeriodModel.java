@@ -6,9 +6,9 @@ package eu.mobile.onko.models;
 
 public class PeriodModel {
     private int     mPeriodId;
-    private String  mPeriodName;
+    private int     mPeriodName;
 
-    public PeriodModel(int mPeriodId, String mPeriodName) {
+    public PeriodModel(int mPeriodId, int mPeriodName) {
         this.mPeriodId = mPeriodId;
         this.mPeriodName = mPeriodName;
     }
@@ -21,11 +21,11 @@ public class PeriodModel {
         this.mPeriodId = mPeriodId;
     }
 
-    public String getmPeriodName() {
+    public int getmPeriodName() {
         return mPeriodName;
     }
 
-    public void setmPeriodName(String mPeriodName) {
+    public void setmPeriodName(int mPeriodName) {
         this.mPeriodName = mPeriodName;
     }
 }

@@ -23,6 +23,7 @@ public class Utils {
     public static final String GET_EXAMINATIONS         = "examinations/getByMkb";
     public static final String GET_DOCTORS              = "doctors/getDoctors";
     public static final String GET_USER_EXAMINATION     = "userExaminations/getUserExaminations";
+    public static final String EXAMINATIONS_CONTROLLER  = "userExaminations";
 
     // QUERY PARAMS
     public static final String GROUP_ID     = "?groupId=";
@@ -65,6 +66,12 @@ public class Utils {
     public static final String PERIOD_ID        = "period_id";
     public static final String DATE             = "date";
     public static final String PERIOD_NAME      = "period_name";
+    public static final String ID_USER_MKB      = "id_user_mkb";
+    public static final String ID_PERIOD        = "id_period";
+    public static final String ID_EXAMINATION   = "id_examination";
+    public static final String EXAMINATION_DATE = "examination_date";
+    public static final String USER_EXAMINATION_ID  = "user_examination_id";
+
 
     // INTENT EXTRAS
     public static final String INTENT_GROUP_ID      = "group_id";

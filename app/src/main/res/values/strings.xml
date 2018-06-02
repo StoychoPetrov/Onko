@@ -28,4 +28,9 @@
     <string name="examinations">Examinations</string>
     <string name="doctors">Doctors</string>
     <string name="examinations_dates">Examinations dates</string>
+    <string name="past">Past examinations</string>
+    <string name="predicted_examinations">Predicted examinations</string>
+    <string name="there_is_no_saved_dates">There is no saved dates</string>
+    <string name="log_in">Log in</string>
+    <string name="add_date">Add date</string>
 </resources>
