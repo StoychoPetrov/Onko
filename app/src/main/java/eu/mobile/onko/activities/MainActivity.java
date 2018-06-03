@@ -2,6 +2,8 @@ package eu.mobile.onko.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity
         setData();
 
         getUserMkbs();
+
+        registerPushToken();
     }
 
     private void initUI(){
@@ -126,6 +130,23 @@ public class MainActivity extends AppCompatActivity
             case INDEX_LOG_OUT:
                 onLogOut();
                 break;
+        }
+    }
+
+    private void registerPushToken(){
+        try {
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            JSONObject data = new JSONObject();
+            data.put(Utils.USER_TOKEN, GlobalData.getInstance().getmToken());
+            data.put(Utils.PUSH_TOKEN, preferences.getString(Utils.PREFERENCES_PUSH_TOKEN, ""));
+
+            PostRequest postRequest = new PostRequest(this, data, this);
+            postRequest.setmHttpMethod("POST");
+            postRequest.execute(Utils.URL + Utils.REGISTER_PUSH_TOKEN);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

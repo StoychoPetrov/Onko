@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "792625059079",
+    "firebase_url": "https://onko-2c389.firebaseio.com",
+    "project_id": "onko-2c389",
+    "storage_bucket": "onko-2c389.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792625059079:android:f3fd0c20f775f620",
+        "android_client_info": {
+          "package_name": "eu.mobile.onko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792625059079-5domvcgdnrp0dja7o6rbo4bodgul96vd.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "792625059079-5domvcgdnrp0dja7o6rbo4bodgul96vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADoMukZWnx85-19erh4VoSYGGwfaAeRPc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

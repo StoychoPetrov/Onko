@@ -13,6 +13,7 @@ public class Utils {
     // REQUEST LINKS
     public static final String URL                      = "http://192.168.0.106:50110/api/";
     public static final String LOGIN                    = "users/login";
+    public static final String REGISTER_PUSH_TOKEN      = "users/registerPushToken";
     public static final String REGISTER                 = "users/register";
     public static final String USER_MKBS                = "userMkb/getAll";
     public static final String MKB_GROUPS               = "MkbGroups";
@@ -71,12 +72,16 @@ public class Utils {
     public static final String ID_EXAMINATION   = "id_examination";
     public static final String EXAMINATION_DATE = "examination_date";
     public static final String USER_EXAMINATION_ID  = "user_examination_id";
+    public static final String PUSH_TOKEN           = "push_token";
 
 
     // INTENT EXTRAS
     public static final String INTENT_GROUP_ID      = "group_id";
     public static final String INTENT_GROUP_NAME    = "group_name";
     public static final String INTENT_MKB_ID        = "mkb_id";
+
+    // PREFERENCES
+    public static final String PREFERENCES_PUSH_TOKEN   = "push_token";
 
     public static void setTypeFace(Context context, TextView textView, String typeFacePath){
         Typeface customFont = Typeface.createFromAsset(context.getAssets(),  typeFacePath);
