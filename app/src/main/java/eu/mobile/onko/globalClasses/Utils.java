@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class Utils {
 
     // REQUEST LINKS
-    public static final String URL                      = "http://192.168.0.106:50110/api/";
+    public static final String URL                      = "http://90.154.211.179:50110/api/";
     public static final String LOGIN                    = "users/login";
     public static final String REGISTER_PUSH_TOKEN      = "users/registerPushToken";
     public static final String REGISTER                 = "users/register";
@@ -82,6 +82,8 @@ public class Utils {
 
     // PREFERENCES
     public static final String PREFERENCES_PUSH_TOKEN   = "push_token";
+
+    public static final String SUPPORT_EMAIL            = "stoychopetrov95@gmail.com";
 
     public static void setTypeFace(Context context, TextView textView, String typeFacePath){
         Typeface customFont = Typeface.createFromAsset(context.getAssets(),  typeFacePath);

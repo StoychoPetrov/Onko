@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case INDEX_FEEDBACK:
+                Intent feedbackIntent   = new Intent(this, FeedbackActivity.class);
+                startActivity(feedbackIntent);
                 break;
             case INDEX_LOG_OUT:
                 onLogOut();

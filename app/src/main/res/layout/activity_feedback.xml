@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android           ="http://schemas.android.com/apk/res/android"
+    xmlns:tools             ="http://schemas.android.com/tools"
+    android:layout_width    ="match_parent"
+    android:layout_height   ="match_parent"
+    android:orientation     ="vertical"
+    tools:context           ="eu.mobile.onko.activities.FeedbackActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width    ="match_parent"
+        android:layout_height   ="0dp"
+        android:layout_weight   ="1"
+        android:paddingLeft     ="16dp"
+        android:paddingRight    ="16dp"
+        android:orientation     ="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width    ="match_parent"
+            android:layout_height   ="wrap_content">
+
+            <EditText
+                android:id              ="@+id/from_edt"
+                android:layout_width    ="match_parent"
+                android:layout_height   ="wrap_content"
+                android:inputType       ="textEmailAddress"
+                android:hint            ="@string/from"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width    ="match_parent"
+            android:layout_height   ="wrap_content">
+
+            <EditText
+                android:id              ="@+id/to_edt"
+                android:layout_width    ="match_parent"
+                android:layout_height   ="wrap_content"
+                android:inputType       ="textEmailAddress"
+                android:hint            ="@string/to"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width    ="match_parent"
+            android:layout_height   ="wrap_content">
+
+            <EditText
+                android:id              ="@+id/subject_edt"
+                android:layout_width    ="match_parent"
+                android:layout_height   ="wrap_content"
+                android:inputType       ="text"
+                android:hint            ="@string/subject"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <EditText
+            android:id              ="@+id/content_edt"
+            android:layout_width    ="match_parent"
+            android:layout_height   ="match_parent"
+            android:paddingTop      ="15dp"
+            android:paddingLeft     ="2dp"
+            android:paddingRight    ="2dp"
+            android:gravity         ="top"
+            android:inputType       ="text"
+            android:background      ="@null"
+            android:hint            ="@string/compose_email"/>
+
+    </LinearLayout>
+
+    <Button
+        style               ="@style/MainButton"
+        android:id          ="@+id/send_btn"
+        android:text        ="@string/send"/>
+
+</LinearLayout>
