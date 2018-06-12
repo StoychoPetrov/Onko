@@ -3,6 +3,10 @@
     package="eu.mobile.onko">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
+    <uses-feature android:name="android.hardware.fingerprint"
+        android:required="false"/>
 
     <application
         android:allowBackup="true"
@@ -36,7 +40,7 @@
         <activity android:name=".activities.ExaminationsActivity" />
         <activity android:name=".activities.DoctorsActivity" />
         <activity android:name=".activities.ExaminationDatesActivity" />
-        <activity android:name=".activities.FeedbackActivity"></activity>
+        <activity android:name=".activities.FeedbackActivity"/>
     </application>
 
 </manifest>

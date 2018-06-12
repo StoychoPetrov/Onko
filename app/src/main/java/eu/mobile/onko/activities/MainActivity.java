@@ -126,12 +126,23 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case INDEX_FEEDBACK:
-                Intent feedbackIntent   = new Intent(this, FeedbackActivity.class);
-                startActivity(feedbackIntent);
+                sendEmail();
                 break;
             case INDEX_LOG_OUT:
                 onLogOut();
                 break;
+        }
+    }
+
+    private void sendEmail(){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"onko@support.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Onco Application");
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
     }
 

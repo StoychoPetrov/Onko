@@ -47,4 +47,16 @@
     <string name="please_enter_last_name">Моля, въведете фамилията си!</string>
     <string name="please_enter_phone_number">Моля, въведете телефонния си номер!</string>
     <string name="invalid_phone_number">Невалиден телефонен номер!</string>
+    <string name="fingerprint_login">Вход с пръстов отпечатък</string>
+    <string name="use_your_fingerprint_for_faster">Използвайте пръстовия си отпечатък за по-бърз и лесен вход. Потвърдете, за да продължите.</string>
+    <string name="touch_sensor">Докоснете четеца </string>
+    <string name="cancel">Отказ</string>
+    <string name="device_settings_changed">Настройките на Вашето устройство са променени.</string>
+    <string name="confirm_identity_again">Моля, потвърдете пръстовия си отпечатък отново, като го поставите на четеца.</string>
+    <string name="fingerprint_not_recognized">Пръстовият отпечатък не е разпознат. Опитайте отново.</string>
+    <string name="fingerprint_recognized">Пръстов отпечатък разпознат.</string>
+    <string name="fingerprint">Пръстов отпечатък</string>
+    <string name="confirm_fingerprint_to_continue">Потвърдете пръстовия си отпечатък, за да продължите</string>
+    <string name="use_login_code">Използвайте код за достъп</string>
+
 </resources>
