@@ -38,4 +38,13 @@
     <string name="subject">Subject</string>
     <string name="compose_email">Compose email…</string>
     <string name="send">Send</string>
+    <string name="please_enter_email">Моля, попълнете вашия имейл!</string>
+    <string name="invalid_email">Невалиден имейл!</string>
+    <string name="please_enter_password">Моля, въведете парола!</string>
+    <string name="please_repeat_password">Моля, въведете повторно вашата парола!</string>
+    <string name="passwords_are_not_equals">Паролите не съвпадат!</string>
+    <string name="please_enter_first_name">Моля, въведете името си!</string>
+    <string name="please_enter_last_name">Моля, въведете фамилията си!</string>
+    <string name="please_enter_phone_number">Моля, въведете телефонния си номер!</string>
+    <string name="invalid_phone_number">Невалиден телефонен номер!</string>
 </resources>

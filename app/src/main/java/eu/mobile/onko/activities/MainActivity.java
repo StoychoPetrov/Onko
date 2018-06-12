@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         mMkbListView.setAdapter(mMkbAdapter);
     }
 
-    private void loadDrawerMenu(){
+        private void loadDrawerMenu(){
 
         ArrayList<DrawerMenuItemModel> menuItems = new ArrayList<>();
         menuItems.add(new DrawerMenuItemModel(getString(R.string.doctors), ContextCompat.getDrawable(this, R.drawable.doctors_icon)));
@@ -227,23 +227,25 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, getString(R.string.you_havent_deleted_mkb_seccessful), Toast.LENGTH_SHORT).show();
         }
         else {
-            try {
-                mUserMkbsArrayList.clear();
-                JSONArray mkbs = new JSONArray(result);
+            if(!result.isEmpty()) {
+                try {
+                    mUserMkbsArrayList.clear();
+                    JSONArray mkbs = new JSONArray(result);
 
-                for (int i = 0; i < mkbs.length(); i++) {
-                    MkbModel mkbModel = new MkbModel(mkbs.getJSONObject(i).getInt(Utils.USER_MKB_ID), mkbs.getJSONObject(i).getInt(Utils.MKB_ID), mkbs.getJSONObject(i).getString(Utils.MKB_NAME));
-                    mUserMkbsArrayList.add(mkbModel);
-                }
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMkbAdapter.notifyDataSetChanged();
+                    for (int i = 0; i < mkbs.length(); i++) {
+                        MkbModel mkbModel = new MkbModel(mkbs.getJSONObject(i).getInt(Utils.USER_MKB_ID), mkbs.getJSONObject(i).getInt(Utils.MKB_ID), mkbs.getJSONObject(i).getString(Utils.MKB_NAME));
+                        mUserMkbsArrayList.add(mkbModel);
                     }
-                });
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMkbAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -3,6 +3,9 @@ package eu.mobile.onko.activities;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -43,6 +46,22 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         mLastNameEdt        = (TextInputEditText) findViewById(R.id.last_name_edt);
         mPhoneNumberEdt     = (TextInputEditText) findViewById(R.id.phone_edt);
         mSignUpBtn          = (Button)            findViewById(R.id.sign_up_btn);
+
+        InputFilter inputFilter = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                if(source.equals("")){ // for backspace
+                    return source;
+                }
+                if(source.toString().matches("[a-zA-Z ]+")){
+                    return source;
+                }
+                return "";
+            }
+        };
+
+        mFirstNameEdt.setFilters(new InputFilter[]{inputFilter});
+        mLastNameEdt.setFilters(new InputFilter[]{inputFilter});
     }
 
     private void setListeners(){
@@ -51,30 +70,46 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private boolean validate(){
         if(mEmailEdt.getText().toString().isEmpty()){
+            Toast.makeText(this, R.string.please_enter_email, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(mEmailEdt.getText().toString()).matches()){
+            Toast.makeText(this, R.string.invalid_email, Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if(mPasswordEdt.getText().toString().isEmpty()){
+            Toast.makeText(this, R.string.please_enter_password, Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if(mRepeatPasswordEdt.getText().toString().isEmpty()){
+            Toast.makeText(this, R.string.please_repeat_password, Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if(!mPasswordEdt.getText().toString().equals(mRepeatPasswordEdt.getText().toString())){
+            Toast.makeText(this, R.string.passwords_are_not_equals, Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if(mFirstNameEdt.getText().toString().isEmpty()){
+            Toast.makeText(this, R.string.please_enter_first_name, Toast.LENGTH_SHORT).show();
             return false;
         }
 
+
         if(mLastNameEdt.getText().toString().isEmpty()){
+            Toast.makeText(this, R.string.please_enter_last_name, Toast.LENGTH_SHORT).show();
             return false;
         }
 
         if(mPhoneNumberEdt.getText().toString().isEmpty()){
+            Toast.makeText(this, R.string.please_enter_phone_number, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(Patterns.PHONE.matcher(mPhoneNumberEdt.getText().toString()).matches()){
+            Toast.makeText(this, R.string.invalid_phone_number, Toast.LENGTH_SHORT).show();
             return false;
         }
 

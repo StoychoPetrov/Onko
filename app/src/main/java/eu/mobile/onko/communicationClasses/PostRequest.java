@@ -43,8 +43,14 @@ public class PostRequest extends AsyncTask<String, Void, String>{
     }
 
     @Override
-    protected String doInBackground(String... urls) {
+    protected void onPreExecute() {
+        super.onPreExecute();
+
         showProgress(true);
+    }
+
+    @Override
+    protected String doInBackground(String... urls) {
 
         mUrl = urls[0]; // URL to call
 
