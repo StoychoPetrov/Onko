@@ -112,6 +112,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         linkFingerprintDialog.setEnableFingerPrintListener(new LinkFingerprintDialog.EnableFingerprintListener() {
             @Override
             public void onError() {
+                //login(mEmailEdt.getText().toString(), mPasswordEdt.getText().toString());
+                goToMainActivity();
             }
 
             @Override

@@ -108,7 +108,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(this, R.string.please_enter_phone_number, Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if(Patterns.PHONE.matcher(mPhoneNumberEdt.getText().toString()).matches()){
+        else if(!Patterns.PHONE.matcher(mPhoneNumberEdt.getText().toString()).matches()){
             Toast.makeText(this, R.string.invalid_phone_number, Toast.LENGTH_SHORT).show();
             return false;
         }
