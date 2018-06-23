@@ -18,7 +18,8 @@ import java.util.Calendar;
 
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
-    private String          mDefaultDate = "";
+    private String          mDefaultDate         = "";
+    private long            mMinDateInMillis     = 0;
     private OnDateSelected  mListener;
 
     public interface OnDateSelected {
@@ -48,6 +49,9 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
         DatePickerDialog dpd = new DatePickerDialog(getActivity(),this,year,month,day);
 
+        if(mMinDateInMillis != 0)
+            dpd.getDatePicker().setMinDate(mMinDateInMillis);
+
         return dpd;
     }
 
@@ -68,5 +72,13 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
     public void setmListener(OnDateSelected mListener) {
         this.mListener = mListener;
+    }
+
+    public long getmMinDateInMillis() {
+        return mMinDateInMillis;
+    }
+
+    public void setmMinDateInMillis(long mMinDateInMillis) {
+        this.mMinDateInMillis = mMinDateInMillis;
     }
 }
