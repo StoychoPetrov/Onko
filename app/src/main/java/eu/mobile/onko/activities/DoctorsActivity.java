@@ -1,13 +1,14 @@
 package eu.mobile.onko.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +23,8 @@ import eu.mobile.onko.communicationClasses.ResponseListener;
 import eu.mobile.onko.globalClasses.Utils;
 import eu.mobile.onko.models.DoctorRowModel;
 
-public class DoctorsActivity extends AppCompatActivity implements View.OnClickListener, ResponseListener {
+public class DoctorsActivity extends AppCompatActivity
+        implements View.OnClickListener, ResponseListener, DoctorsAdapter.OnDoctorsListener {
 
     private ImageView                   mBackArrowImg;
     private RecyclerView                mDoctorsListView;
@@ -52,7 +54,7 @@ public class DoctorsActivity extends AppCompatActivity implements View.OnClickLi
         mLayoutManager = new LinearLayoutManager(this);
         mDoctorsListView.setLayoutManager(mLayoutManager);
 
-        mDoctorsAdapter = new DoctorsAdapter(this, mDoctorsArrayList);
+        mDoctorsAdapter = new DoctorsAdapter(this, mDoctorsArrayList, this);
         mDoctorsListView.setAdapter(mDoctorsAdapter);
     }
 
@@ -82,13 +84,13 @@ public class DoctorsActivity extends AppCompatActivity implements View.OnClickLi
 
                     JSONObject mkbGroup = data.getJSONObject(i);
 
-                    mDoctorsArrayList.add(new DoctorRowModel(DoctorRowModel.SECTION_INDEX, mkbGroup.getString(Utils.MKB_GROUP)));
+                    mDoctorsArrayList.add(new DoctorRowModel(DoctorRowModel.SECTION_INDEX, mkbGroup.getString(Utils.MKB_GROUP), 0));
 
                     JSONArray doctors = mkbGroup.getJSONArray(Utils.DOCTORS);
                     for(int j = 0 ; j < doctors.length(); j++){
                         JSONObject doctor = doctors.getJSONObject(j);
 
-                        mDoctorsArrayList.add(new DoctorRowModel(DoctorRowModel.ITEM_INDEX, doctor.getString(Utils.DOCTOR_NAME)));
+                        mDoctorsArrayList.add(new DoctorRowModel(DoctorRowModel.ITEM_INDEX, doctor.getString(Utils.DOCTOR_NAME), doctor.getInt(Utils.DOCTOR_ID)));
                     }
                 }
 
@@ -102,5 +104,13 @@ public class DoctorsActivity extends AppCompatActivity implements View.OnClickLi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onDoctorClicked(int position) {
+        Intent intent = new Intent(this, UsersDoctorsActivity.class);
+        intent.putExtra(Utils.DOCTOR_ID, mDoctorsArrayList.get(position).getmDoctorId());
+        intent.putExtra(Utils.DOCTOR_NAME, mDoctorsArrayList.get(position).getmLabel());
+        startActivity(intent);
     }
 }

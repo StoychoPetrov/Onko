@@ -58,5 +58,41 @@
     <string name="fingerprint">Пръстов отпечатък</string>
     <string name="confirm_fingerprint_to_continue">Потвърдете пръстовия си отпечатък, за да продължите</string>
     <string name="use_login_code">Използвайте код за достъп</string>
+    <string name="type_account">Вид акаунт</string>
+    <string name="doctor_type">Специалист</string>
+    <string name="please_choose_client_type">Моля, изберете вид на акаунта</string>
+    <string name="account_type_1">Доктор</string>
+    <string name="account_type_2">Пациент</string>
+    <string name="please_choose_doctor_type">Изберете специалист</string>
+    <string name="oops_something_went_wrong">Възникна грешка!</string>
+    <string name="monday">Понеделник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Сряда</string>
+    <string name="thursday">Четвъртък</string>
+    <string name="friday">Петък</string>
+    <string name="saturday">Събота</string>
+    <string name="sunday">Неделя</string>
+    <string name="to_">до</string>
+    <string name="working_time">Работно време</string>
+    <string name="reservations">Записани часове</string>
+    <string name="free_hours">Свободни часове</string>
+    <string name="onco_channel">Onko Channel</string>
+    <string name="reservation_confirmation">Потвърждавате ли резервацията?</string>
+    <string name="date">Дата:</string>
+    <string name="doctor_type_colons">Специалист:</string>
+    <string name="doctor_name_colons">Име на доктора:</string>
+    <string name="customer_name">Име на пациента:</string>
+    <string name="confirm">Потвърждавам</string>
+    <string name="confirm_">Потвърди</string>
+    <string name="reject">Откажи</string>
+    <string name="res_status_1">Нов</string>
+    <string name="res_status_2">Очаква\nпотвърждение</string>
+    <string name="res_status_3">Одобрен</string>
+    <string name="res_status_4">Отказан</string>
+    <string name="res_status_5">Преминат</string>
+    <string name="next">Предстоящи</string>
+    <string name="previous">Изминали</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

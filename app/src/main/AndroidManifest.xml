@@ -5,8 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
-    <uses-feature android:name="android.hardware.fingerprint"
-        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -15,16 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".globalClasses.MyFirebaseMessagingService">
+        <activity android:name=".activities.ReservationsActivity" />
+        <activity android:name=".activities.ReserveHourActivity" />
+        <activity android:name=".activities.UsersDoctorsActivity" />
+        <activity android:name=".activities.doctorActivities.DoctorsMainActivity" />
+        <activity android:name=".activities.doctorActivities.ScheduleActivity" />
+        <activity android:name=".activities.ChooseDoctorActivity" />
+
+        <service
+            android:name=".globalClasses.MyFirebaseInstanceIDService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".globalClasses.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/onco_channel" />
 
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
@@ -40,7 +49,7 @@
         <activity android:name=".activities.ExaminationsActivity" />
         <activity android:name=".activities.DoctorsActivity" />
         <activity android:name=".activities.ExaminationDatesActivity" />
-        <activity android:name=".activities.FeedbackActivity"/>
+        <activity android:name=".activities.FeedbackActivity" />
     </application>
 
 </manifest>

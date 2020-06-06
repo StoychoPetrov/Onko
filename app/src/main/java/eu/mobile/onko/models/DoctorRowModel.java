@@ -10,11 +10,13 @@ public class DoctorRowModel {
     public static final int ITEM_INDEX      = 1;
 
     private int     mRowType;
+    private int     mDoctorId;
     private String  mLabel;
 
-    public DoctorRowModel(int mRowType, String mLabel) {
+    public DoctorRowModel(int mRowType, String mLabel, int doctorId) {
         this.mRowType   = mRowType;
         this.mLabel     = mLabel;
+        this.mDoctorId  = doctorId;
     }
 
     public int getmRowType() {
@@ -31,5 +33,13 @@ public class DoctorRowModel {
 
     public void setmLabel(String mLabel) {
         this.mLabel = mLabel;
+    }
+
+    public int getmDoctorId() {
+        return mDoctorId;
+    }
+
+    public void setmDoctorId(int mDoctorId) {
+        this.mDoctorId = mDoctorId;
     }
 }

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android           ="http://schemas.android.com/apk/res/android"
+    xmlns:app               ="http://schemas.android.com/apk/res-auto"
+    android:layout_width    ="match_parent"
+    android:layout_height   ="wrap_content"
+    android:paddingTop      ="20dp"
+    android:paddingStart    ="16dp"
+    android:paddingEnd      ="16dp">
+
+    <TextView
+        android:id                              ="@+id/titleTxt"
+        android:layout_width                    ="0dp"
+        android:layout_height                   ="wrap_content"
+        android:text                            ="@string/reservation_confirmation"
+        android:textSize                        ="18sp"
+        android:textColor                       ="@android:color/black"
+        android:textStyle                       ="bold"
+        app:layout_constraintStart_toStartOf    ="parent"
+        app:layout_constraintEnd_toEndOf        ="parent"
+        app:layout_constraintTop_toTopOf        ="parent"/>
+
+    <TextView
+        android:id                          ="@+id/hourTxt"
+        android:layout_width                ="0dp"
+        android:layout_height               ="wrap_content"
+        android:layout_marginTop            ="20dp"
+        android:layout_marginBottom         ="20dp"
+        android:textSize                    ="22sp"
+        android:textColor                   ="@android:color/black"
+        android:textStyle                   ="bold"
+        android:gravity                     ="center"
+        app:layout_constraintTop_toBottomOf ="@id/titleTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf    ="parent"/>
+
+    <TextView
+        android:id                              ="@+id/reservationDateLabelTxt"
+        android:layout_width                    ="0dp"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:text                            ="@string/date"
+        app:layout_constraintTop_toBottomOf     ="@id/hourTxt"
+        app:layout_constraintStart_toStartOf    ="parent"
+        app:layout_constraintEnd_toStartOf      ="@id/reservationDateTxt"/>
+
+    <TextView
+        android:id                              ="@+id/reservationDateTxt"
+        android:layout_width                    ="wrap_content"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:textColor                       ="@android:color/black"
+        app:layout_constraintTop_toBottomOf     ="@id/hourTxt"
+        app:layout_constraintEnd_toEndOf        ="parent"/>
+
+    <TextView
+        android:id                              ="@+id/doctorLabelTxt"
+        android:layout_width                    ="0dp"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:text                            ="@string/doctor_type_colons"
+        app:layout_constraintTop_toBottomOf     ="@id/reservationDateTxt"
+        app:layout_constraintStart_toStartOf    ="parent"
+        app:layout_constraintEnd_toStartOf      ="@id/doctorTxt"/>
+
+    <TextView
+        android:id                              ="@+id/doctorTxt"
+        android:layout_width                    ="wrap_content"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:textColor                       ="@android:color/black"
+        app:layout_constraintTop_toBottomOf     ="@id/reservationDateTxt"
+        app:layout_constraintEnd_toEndOf        ="parent"/>
+
+    <TextView
+        android:id                              ="@+id/doctorNameLabelTxt"
+        android:layout_width                    ="0dp"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:text                            ="@string/doctor_name_colons"
+        app:layout_constraintTop_toBottomOf     ="@id/doctorTxt"
+        app:layout_constraintStart_toStartOf    ="parent"
+        app:layout_constraintEnd_toStartOf      ="@id/doctorNameTxt"/>
+
+    <TextView
+        android:id                              ="@+id/doctorNameTxt"
+        android:layout_width                    ="wrap_content"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:textColor                       ="@android:color/black"
+        app:layout_constraintTop_toBottomOf     ="@id/doctorTxt"
+        app:layout_constraintEnd_toEndOf        ="parent"/>
+
+    <TextView
+        android:id                              ="@+id/customerNameLabelTxt"
+        android:layout_width                    ="0dp"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:text                            ="@string/customer_name"
+        app:layout_constraintTop_toBottomOf     ="@id/doctorNameTxt"
+        app:layout_constraintStart_toStartOf    ="parent"
+        app:layout_constraintEnd_toStartOf      ="@id/customerNameTxt"/>
+
+    <TextView
+        android:id                              ="@+id/customerNameTxt"
+        android:layout_width                    ="wrap_content"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:textColor                       ="@android:color/black"
+        app:layout_constraintTop_toBottomOf     ="@id/doctorNameTxt"
+        app:layout_constraintEnd_toEndOf        ="parent"/>
+
+    <Button
+        style                                   ="@style/Widget.AppCompat.Button.Borderless"
+        android:id                              ="@+id/negativeBtn"
+        android:layout_width                    ="wrap_content"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="17dp"
+        android:text                            ="@string/cancel"
+        android:textSize                        ="16sp"
+        android:visibility                      ="gone"
+        app:layout_constraintTop_toBottomOf     ="@id/customerNameTxt"
+        app:layout_constraintEnd_toStartOf      ="@id/positiveBtn"/>
+
+    <Button
+        style                                   ="@style/Widget.AppCompat.Button.Borderless"
+        android:id                              ="@+id/positiveBtn"
+        android:layout_width                    ="wrap_content"
+        android:layout_height                   ="wrap_content"
+        android:layout_marginTop                ="20dp"
+        android:text                            ="@string/confirm"
+        android:textSize                        ="16sp"
+        android:textColor                       ="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf     ="@id/customerNameTxt"
+        app:layout_constraintEnd_toEndOf        ="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

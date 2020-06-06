@@ -7,7 +7,7 @@
     xmlns:app               ="http://schemas.android.com/apk/res-auto"
     tools:context           ="eu.mobile.onko.activities.MainActivity">
 
-    <android.support.v4.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id              ="@+id/drawer_layout"
         android:layout_width    ="match_parent"
         android:layout_height   ="match_parent">
@@ -17,7 +17,7 @@
             android:layout_width    ="match_parent"
             android:layout_height   ="match_parent">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id              ="@+id/toolbar"
                 android:layout_width    ="match_parent"
                 android:layout_height   ="?attr/actionBarSize"
@@ -35,7 +35,7 @@
                 android:dividerHeight   ="0dp"
                 android:divider         ="@android:color/transparent"/>
 
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id                          ="@+id/diseases_fab"
                 android:layout_width                ="wrap_content"
                 android:layout_height               ="wrap_content"
@@ -54,7 +54,7 @@
             android:layout_gravity  ="start"
             android:background      ="@android:color/white"/>
 
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <include layout="@layout/progress_layout"/>
 

@@ -2,7 +2,7 @@ package eu.mobile.onko.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import eu.mobile.onko.R;
 import eu.mobile.onko.globalClasses.GlobalData;
 import eu.mobile.onko.globalClasses.Utils;
 import eu.mobile.onko.models.DrawerMenuItemModel;
-import eu.mobile.onko.models.ProfileModel;
 
 /**
  * Created by stoycho.petrov on 04/09/2017.
@@ -29,7 +28,7 @@ public class NavDrawerAdapter extends BaseAdapter{
     private static final int TYPE_ITEM          = 1;
 
     private Context                             mContext;
-    private ArrayList<DrawerMenuItemModel>      mNavMenuItems = new ArrayList<>();
+    private ArrayList<DrawerMenuItemModel>      mNavMenuItems;
     private LayoutInflater                      mLayoutInflater;
 
 

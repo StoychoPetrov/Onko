@@ -1,12 +1,13 @@
 package eu.mobile.onko.adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -20,11 +21,17 @@ import eu.mobile.onko.models.DoctorRowModel;
 public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHolder> {
 
     private Context                     mContext;
-    private ArrayList<DoctorRowModel>   mDoctorsArrayList   = new ArrayList<>();
+    private ArrayList<DoctorRowModel>   mDoctorsArrayList;
+    private OnDoctorsListener           mListener;
 
-    public DoctorsAdapter(Context context, ArrayList<DoctorRowModel> doctorsArrayList) {
+    public interface OnDoctorsListener {
+        void onDoctorClicked(int position);
+    }
+
+    public DoctorsAdapter(Context context, ArrayList<DoctorRowModel> doctorsArrayList, OnDoctorsListener listener) {
         mContext           = context;
         mDoctorsArrayList  = doctorsArrayList;
+        mListener          = listener;
     }
 
     @NonNull
@@ -69,6 +76,15 @@ public class DoctorsAdapter extends RecyclerView.Adapter<DoctorsAdapter.ViewHold
 
             mSectionTxt         = itemView.findViewById(R.id.mkb_group_name_txt);
             mDoctorTitleTxt     = itemView.findViewById(R.id.doctor_title);
+
+            if(mDoctorTitleTxt != null) {
+                mDoctorTitleTxt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mListener.onDoctorClicked(getAdapterPosition());
+                    }
+                });
+            }
         }
     }
 }

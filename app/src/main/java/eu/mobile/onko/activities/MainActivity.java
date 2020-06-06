@@ -2,20 +2,26 @@ package eu.mobile.onko.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,15 +39,15 @@ import eu.mobile.onko.globalClasses.GlobalData;
 import eu.mobile.onko.globalClasses.Utils;
 import eu.mobile.onko.models.DrawerMenuItemModel;
 import eu.mobile.onko.models.MkbModel;
-import eu.mobile.onko.models.ProfileModel;
 
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener, DrawerLayout.DrawerListener, ResponseListener, View.OnClickListener, MkbAdapter.OnButtonsClicked {
 
     private static final int REQUEST_CODE_MKB_GROUP = 0;
-    private static final int INDEX_DOCTORS          = 1;
-    private static final int INDEX_FEEDBACK         = 2;
-    private static final int INDEX_LOG_OUT          = 3;
+    private static final int INDEX_RESERVATIONS     = 1;
+    private static final int INDEX_DOCTORS          = 2;
+    private static final int INDEX_FEEDBACK         = 3;
+    private static final int INDEX_LOG_OUT          = 4;
 
     private Toolbar                 mToolbar;
     private ListView                mNavDrawerListView;
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
         getUserMkbs();
 
-        registerPushToken();
+        getPushToken();
     }
 
     private void initUI(){
@@ -104,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         private void loadDrawerMenu(){
 
         ArrayList<DrawerMenuItemModel> menuItems = new ArrayList<>();
+        menuItems.add(new DrawerMenuItemModel(getString(R.string.reservations), ContextCompat.getDrawable(this, R.drawable.doctors_icon)));
         menuItems.add(new DrawerMenuItemModel(getString(R.string.doctors), ContextCompat.getDrawable(this, R.drawable.doctors_icon)));
         menuItems.add(new DrawerMenuItemModel(getString(R.string.feedback),ContextCompat.getDrawable(this,R.drawable.ic_email)));
         menuItems.add(new DrawerMenuItemModel(getString(R.string.log_out),ContextCompat.getDrawable(this,R.drawable.ic_logout)));
@@ -120,9 +127,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void onDrawerItemSelected(int position){
+        Intent intent;
         switch (position){
+            case INDEX_RESERVATIONS:
+                intent = new Intent(this, ReservationsActivity.class);
+                startActivity(intent);
+                break;
             case INDEX_DOCTORS:
-                Intent intent = new Intent(this, DoctorsActivity.class);
+                intent = new Intent(this, DoctorsActivity.class);
                 startActivity(intent);
                 break;
             case INDEX_FEEDBACK:
@@ -146,14 +158,32 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void registerPushToken(){
-        try {
+    private void getPushToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                @Override
+                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                    if (!task.isSuccessful()) {
+                        Log.w("Push token:", "getInstanceId failed", task.getException());
+                        return;
+                    }
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                    // Get new Instance ID token
+                    String token = task.getResult().getToken();
+                    registerPushToken(token);
+
+                    // Log and toast
+                    Log.d("Push token:", token);
+                }
+            });
+    }
+
+    private void registerPushToken(String token){
+        try {
 
             JSONObject data = new JSONObject();
             data.put(Utils.USER_TOKEN, GlobalData.getInstance().getmToken());
-            data.put(Utils.PUSH_TOKEN, preferences.getString(Utils.PREFERENCES_PUSH_TOKEN, ""));
+            data.put(Utils.PUSH_TOKEN, token);
 
             PostRequest postRequest = new PostRequest(this, data, this);
             postRequest.setmHttpMethod("POST");

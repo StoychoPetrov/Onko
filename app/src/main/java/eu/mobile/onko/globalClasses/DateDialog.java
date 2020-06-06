@@ -1,16 +1,17 @@
 package eu.mobile.onko.globalClasses;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by Stoycho Petrov on 27.5.2018 г..
@@ -36,7 +37,7 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
         if(!mDefaultDate.equalsIgnoreCase("")){
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 calendar.setTime(sdf.parse(mDefaultDate));
             }catch (Exception e){
                 e.printStackTrace();

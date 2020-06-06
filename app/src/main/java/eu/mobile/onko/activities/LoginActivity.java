@@ -9,8 +9,9 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import eu.mobile.onko.R;
+import eu.mobile.onko.activities.doctorActivities.DoctorsMainActivity;
 import eu.mobile.onko.communicationClasses.PostRequest;
 import eu.mobile.onko.communicationClasses.ResponseListener;
 import eu.mobile.onko.globalClasses.ConfirmFingerprintDialog;
@@ -30,6 +32,7 @@ import eu.mobile.onko.globalClasses.GlobalData;
 import eu.mobile.onko.globalClasses.KeystoreHandler;
 import eu.mobile.onko.globalClasses.LinkFingerprintDialog;
 import eu.mobile.onko.globalClasses.Utils;
+import eu.mobile.onko.models.UserTypeEnum;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ResponseListener, FingerprintHandler.OnAuthenticationSucceededListener, FingerprintHandler.OnAuthenticationErrorListener{
 
@@ -77,6 +80,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         finish();
     }
 
+    private void goToDoctorActivity() {
+        Intent intent = new Intent(this, DoctorsMainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private  void login(String email, String password){
         JSONObject jsonObject = new JSONObject();
         try {
@@ -113,7 +122,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onError() {
                 //login(mEmailEdt.getText().toString(), mPasswordEdt.getText().toString());
-                goToMainActivity();
+                if(GlobalData.getInstance().getmUserType() == UserTypeEnum.Patient.getId())
+                    goToMainActivity();
+                else
+                    goToDoctorActivity();
             }
 
             @Override
@@ -128,7 +140,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                    if(GlobalData.getInstance().getmUserType() == UserTypeEnum.Patient.getId())
                         goToMainActivity();
+                    else
+                        goToDoctorActivity();
                     }
                 }, 300);
             }
@@ -216,18 +231,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 GlobalData.getInstance().setmLastName(jsonObject.getString(Utils.USER_LAST_NAME));
                 GlobalData.getInstance().setmPhoneNumber(jsonObject.getString(Utils.USER_PHONE));
                 GlobalData.getInstance().setmToken(jsonObject.getString(Utils.USER_TOKEN));
+                GlobalData.getInstance().setmUserType(jsonObject.getInt(Utils.USER_TYPE_ID));
             }catch (JSONException exception){
                 exception.printStackTrace();
             }
 
             boolean isFingerPrintSet = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getBoolean(Utils.PREFERENCES_USE_FINGERPRINT_WHEN_LOG_IN, false);
 
-            if(mFingerprintHandler.isFingerScannerAvailableAndSet() && !isFingerPrintSet) {
+            if((mFingerprintHandler.isFingerScannerAvailableAndSet() && !isFingerPrintSet)) {
                 showEnableFingerprintDialog(false);
             }
-            else {
+            else if(GlobalData.getInstance().getmUserType() == UserTypeEnum.Patient.getId())
                 goToMainActivity();
-            }
+            else
+                goToDoctorActivity();
         }
         else if(responseCode == Utils.STATUS_NOT_FOUND){
             Toast.makeText(LoginActivity.this, getString(R.string.wrong_email_or_password), Toast.LENGTH_SHORT).show();

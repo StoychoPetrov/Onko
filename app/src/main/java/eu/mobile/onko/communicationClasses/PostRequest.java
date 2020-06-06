@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -54,24 +55,28 @@ public class PostRequest extends AsyncTask<String, Void, String>{
 
         mUrl = urls[0]; // URL to call
 
-        OutputStream out = null;
+        OutputStream out;
         try {
 
             URL url = new URL(mUrl);
 
+            Log.d("HTTP_URL", mUrl);
+
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(mHttpMethod);
             urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-            if(mHttpMethod.equalsIgnoreCase("POST")) {
+            if(mHttpMethod.equalsIgnoreCase("POST")
+                || mHttpMethod.equalsIgnoreCase("PUT")) {
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
             }
             urlConnection.connect();
 
-            if(mHttpMethod.equalsIgnoreCase("POST")) {
+            if(mHttpMethod.equalsIgnoreCase("POST")
+                || mHttpMethod.equalsIgnoreCase("PUT")) {
                 out = new BufferedOutputStream(urlConnection.getOutputStream());
 
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
 
                 String data = mPostData.toString(); //data to post
                 writer.write(data);
